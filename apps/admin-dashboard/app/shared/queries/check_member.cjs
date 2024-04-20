@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-const { db } = require('../core.server');
+const { db } = require('../core.server.js');
 
 async function StudentHasGithub(githubId) {
   const result = await db
