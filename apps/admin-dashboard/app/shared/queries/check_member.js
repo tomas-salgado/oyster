@@ -1,10 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line
 const { db } = require('../core.server');
 
-export async function StudentHasGithub(githubId: string): Promise<boolean> {
+async function StudentHasGithub(githubId) {
   const result = await db
     .selectFrom('students')
     .where('schoolId', '=', githubId);
 
   return !!result;
 }
+
+// eslint-disable-next-line
+module.exports = StudentHasGithub;
