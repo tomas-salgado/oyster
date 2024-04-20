@@ -15,5 +15,4 @@ jobs:
           script: |
             const script = require('../check_member.js')
             script({github, context})
-            }
 
