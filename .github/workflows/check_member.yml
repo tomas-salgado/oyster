@@ -17,4 +17,4 @@ jobs:
           script: |
             console.log('${{ github.workspace }}/.github/workflows/check_member.js')
             const script = require('${{ github.workspace }}/.github/workflows/check_member.js');
-            console.log(script({github, context}));
+            await script({github, context});
