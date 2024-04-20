@@ -7,6 +7,6 @@
     },
     "types": ["@remix-run/node", "vite/client"]
   },
-  "include": ["env.d.ts", "global.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "include": ["env.d.ts", "global.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs"],
   "exclude": ["node_modules"]
 }
