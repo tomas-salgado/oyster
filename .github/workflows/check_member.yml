@@ -1,0 +1,23 @@
+name: Check if ColorStack Member
+
+on:
+  pull_request:
+    types: opened
+
+jobs:
+  pr_comment:
+    name: Comment on Pull Request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on PR
+        uses: actions/github-script@v4
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'It doesn't seem like you are a ColorStack member. This codebase is primarily meant to benefit our students so that they can gain experience contributing to a codebase, so unfortunately your contribution will not be prioritized.
+
+              If you are a ColorStack member, then be sure to connect your GitHub account in your Member Profile!'
+            })
