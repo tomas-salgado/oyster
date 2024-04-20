@@ -15,5 +15,6 @@ jobs:
       - uses: actions/github-script@v4
         with:
           script: |
-            const script = require('${{ github.workspace }}/path/to/check_member.js');
+            console.log('${{ github.workspace }}/.github/workflows/check_member.js')
+            const script = require('${{ github.workspace }}/.github/workflows/check_member.js');
             console.log(script({github, context}));
