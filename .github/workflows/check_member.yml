@@ -12,10 +12,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           sparse-checkout: apps
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: npm install # Install dependencies
+      - run: npm run build # Compile TypeScript files
       - uses: actions/github-script@v4
         with:
           script: |
-            const script = require('${{ github.workspace }}/apps/admin-dashboard/app/shared/queries/check_member.js');
+            const script = require('${{ github.workspace }}/apps/admin-dashboard/app/shared/queries/check_member.ts');
 
             const userExists = await script.StudentHasGithub(githubId);
 
