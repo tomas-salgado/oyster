@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          sparse-checkout: apps
+          sparse-checkout: apps/admin-dashboard/app/shared/queries
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
