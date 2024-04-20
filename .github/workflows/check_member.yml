@@ -15,7 +15,7 @@ jobs:
       - uses: actions/github-script@v4
         with:
           script: |
-            const script = require('${{ github.workspace }}/apps/admin-dashboard/app/shared/queries/check_member.ts');
+            const script = require('${{ github.workspace }}/apps/admin-dashboard/app/shared/queries/check_member.js');
 
             const userExists = await script.StudentHasGithub(githubId);
 
