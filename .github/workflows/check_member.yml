@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          sparse-checkout: .
+          sparse-checkout: apps
       - uses: actions/github-script@v4
         with:
           script: |
