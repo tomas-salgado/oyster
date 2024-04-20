@@ -11,8 +11,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          sparse-checkout: apps
+          sparse-checkout: apps/admin-dashboard/app/shared/queries
 
+      - name: Cache Turborepo setup
+        uses: actions/cache@v4
+        with:
+          # When running turbo commands, we use `.turbo` as the cache directory.
+          # See the root `package.json` for reference.
+          path: .turbo
+
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+
+          # This is how GitHub Actions restores the cache. Because we only
+          # the prefix of the key (and not the `github.sha`), this will allow
+          # us to hit the cache on any CI runs on commit on any branch.
+          restore-keys: |
+            ${{ runner.os }}-turbo-
       - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
