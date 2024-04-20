@@ -11,10 +11,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          sparse-checkout: .github
+          sparse-checkout: .
       - uses: actions/github-script@v4
         with:
           script: |
-            console.log('${{ github.workspace }}/.github/workflows/check_member.js')
-            const script = require('${{ github.workspace }}/.github/workflows/check_member.js');
-            await script({github, context});
+            const script = require('${{ github.workspace }}/apps/admin-dashboard/app/shared/queries/check_member.ts');
+
+            const userExists = await script.StudentHasGithub(githubId);
+
+            if (userExists) {
+              github.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `It doesn\'t seem like you are a ColorStack member. This codebase is primarily meant to benefit our students so that they can gain experience contributing to a codebase, so unfortunately your contribution will not be prioritized. 
+                
+            If you are a ColorStack member, then be sure to connect your GitHub account in your [Member Profile](https://app.colorstack.io/profile/integrations)!`
+              });
+            }
