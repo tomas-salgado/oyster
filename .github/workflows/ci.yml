@@ -80,29 +80,10 @@ jobs:
       - name: Run tests
         run: yarn test --filter=[$BASE_SHA]
 
-      - name: Check PostgreSQL query result
+      - name: Query Postgres
         run: |
+          githubId=github.context.payload.pull_request.user.id
+          result=$(psql -U $POSTGRES_USER -d $POSTGRES_DB -tAc "SELECT COUNT(*) FROM students WHERE githubId = $githubId")
           if [ $result -eq 0 ]; then
             echo "GitHub ID not found in students table"
-            # Add your logic here to run the next step if the condition is met
           fi
-
-      - name: Run GitHub script if condition is met
-        if: ${{ success() }}
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const script = await import('${{ github.workspace }}/apps/admin-dashboard/app/shared/queries/check_member.js');
-
-            const userExists = await script.StudentHasGithub(githubId);
-
-            if (userExists) {
-              github.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: `It doesn\'t seem like you are a ColorStack member. This codebase is primarily meant to benefit our students so that they can gain experience contributing to a codebase, so unfortunately your contribution will not be prioritized. 
-                
-                If you are a ColorStack member, then be sure to connect your GitHub account in your [Member Profile](https://app.colorstack.io/profile/integrations)!`
-              });
-            }
