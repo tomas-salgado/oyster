@@ -105,7 +105,7 @@ export default function ApplicationPage() {
         <Form.ErrorMessage>{error}</Form.ErrorMessage>
 
         <Button.Group flexDirection="row-reverse">
-          <Button type="submit">Accept Application</Button>
+          <Button type="submit">Confirm</Button>
 
           <Button onClick={onBack} type="button" variant="secondary">
             Back
